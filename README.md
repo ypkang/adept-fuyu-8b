@@ -1,0 +1,5 @@
+---
+license: cc
+language:
+- en
+---
