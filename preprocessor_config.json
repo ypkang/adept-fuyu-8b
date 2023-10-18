@@ -1,0 +1,8 @@
+{
+  "image_processor_type": "FuyuImageProcessor",
+  "padding_mode": "constant",
+  "padding_value": 1.0,
+  "processor_class": "FuyuProcessor",
+  "target_height": 1080,
+  "target_width": 1920
+}

@@ -1,11 +1,9 @@
 {
-  "add_bos_token": true,
-  "add_eos_token": false,
   "added_tokens_decoder": {
     "0": {
       "content": "<unk>",
       "lstrip": false,
-      "normalized": true,
+      "normalized": false,
       "rstrip": false,
       "single_word": false,
       "special": true
@@ -13,19 +11,23 @@
     "71013": {
       "content": "|ENDOFTEXT|",
       "lstrip": false,
-      "normalized": true,
+      "normalized": false,
       "rstrip": false,
       "single_word": false,
       "special": true
     }
   },
-  "additional_special_tokens": [],
+  "additional_special_tokens": [
+    "<unk>",
+    "|ENDOFTEXT|"
+  ],
   "bos_token": "|ENDOFTEXT|",
   "clean_up_tokenization_spaces": false,
   "eos_token": "|ENDOFTEXT|",
   "legacy": true,
   "model_max_length": 1000000000000000019884624838656,
   "pad_token": null,
+  "processor_class": "FuyuProcessor",
   "sp_model_kwargs": {},
   "spaces_between_special_tokens": false,
   "tokenizer_class": "LlamaTokenizer",
