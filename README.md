@@ -38,6 +38,64 @@ Though not the focus of this model, we did evaluate it on standard image underst
 | COCO Captions       | 141     |     138           | n/a               | n/a           | 149          | 135        | 138         |
 | AI2D                | 64.5    |     73.7          | n/a               | 62.3          | 81.2         | n/a        | n/a         |
 
+## How to Use
+
+You can load the model and perform inference as follows:
+```python
+from transformers import FuyuForCausalLM, AutoTokenizer, FuyuProcessor, FuyuImageProcessor
+from PIL import Image
+
+# load model, tokenizer, and processor
+pretrained_path = "adept/fuyu-8b"
+tokenizer = AutoTokenizer.from_pretrained(pretrained_path)
+
+image_processor = FuyuImageProcessor()
+processor = FuyuProcessor(image_processor=image_processor, tokenizer=tokenizer)
+
+model = FuyuForCausalLM.from_pretrained(pretrained_path, device_map="cuda:0")
+
+# test inference
+text_prompt = "Generate a coco-style caption.\n"
+image_path = "bus.png"  # https://huggingface.co/adept-hf-collab/fuyu-8b/blob/main/bus.png
+image_pil = Image.open(image_path)
+
+model_inputs = processor(text=text_prompt, images=[image_pil], device="cuda:0")
+for k, v in model_inputs.items():
+    model_inputs[k] = v.to("cuda:0")
+
+generation_output = model.generate(**model_inputs, max_new_tokens=8)
+generation_text = processor.batch_decode(generation_output, skip_special_tokens=True)[0][-38:]
+assert generation_text == "A bus parked on the side of a road.<s>"
+```
+
+Fuyu can also perform some question answering on natural images:
+```python
+text_prompt = "What color is the bus?\n"
+image_path = "/bus.png"  # https://huggingface.co/adept-hf-collab/fuyu-8b/blob/main/bus.png
+image_pil = Image.open(image_path)
+
+model_inputs = processor(text=text_prompt, images=[image_pil], device="cuda:0")
+for k, v in model_inputs.items():
+    model_inputs[k] = v.to("cuda:0")
+
+generation_output = model.generate(**model_inputs, max_new_tokens=6)
+generation_text = processor.batch_decode(generation_output, skip_special_tokens=True)[0][-17:]
+assert generation_text == "The bus is blue.\n"
+
+
+text_prompt = "What is the highest life expectancy at birth of male?\n"
+image_path = "chart.png"  # https://huggingface.co/adept-hf-collab/fuyu-8b/blob/main/chart.png
+image_pil = Image.open(image_path)
+
+model_inputs = processor(text=text_prompt, images=[image_pil], device="cuda:0")
+for k, v in model_inputs.items():
+    model_inputs[k] = v.to("cuda:0")
+
+generation_output = model.generate(**model_inputs, max_new_tokens=16)
+generation_text = processor.batch_decode(generation_output, skip_special_tokens=True)[0][-55:]
+assert generation_text == "The life expectancy at birth of males in 2018 is 80.7.\n"
+```
+
 ## Uses
 
 ### Direct Use
