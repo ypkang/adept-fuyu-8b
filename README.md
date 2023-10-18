@@ -63,15 +63,15 @@ model_inputs = processor(text=text_prompt, images=[image_pil], device="cuda:0")
 for k, v in model_inputs.items():
     model_inputs[k] = v.to("cuda:0")
 
-generation_output = model.generate(**model_inputs, max_new_tokens=8)
-generation_text = processor.batch_decode(generation_output, skip_special_tokens=True)[0][-38:]
-assert generation_text == "A bus parked on the side of a road.<s>"
+generation_output = model.generate(**model_inputs, max_new_tokens=7)
+generation_text = processor.batch_decode(generation_output, skip_special_tokens=True)[0][-35:]
+assert generation_text == "A bus parked on the side of a road."
 ```
 
 Fuyu can also perform some question answering on natural images and charts/diagrams (thought fine-tuning may be required for good performance):
 ```python
 text_prompt = "What color is the bus?\n"
-image_path = "/bus.png"  # https://huggingface.co/adept-hf-collab/fuyu-8b/blob/main/bus.png
+image_path = "bus.png"  # https://huggingface.co/adept-hf-collab/fuyu-8b/blob/main/bus.png
 image_pil = Image.open(image_path)
 
 model_inputs = processor(text=text_prompt, images=[image_pil], device="cuda:0")
