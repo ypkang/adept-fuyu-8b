@@ -101,6 +101,7 @@ generation_output = model.generate(**model_inputs, max_new_tokens=16)
 generation_text = processor.batch_decode(generation_output[:, -16:], skip_special_tokens=True)
 assert generation_text == ["The life expectancy at birth of males in 2018 is 80.7.\n"]
 ```
+For best performance, it's recommended to end questions with `\n`, as shown above!
 
 ## Uses
 
