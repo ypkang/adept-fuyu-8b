@@ -68,7 +68,7 @@ generation_text = processor.batch_decode(generation_output, skip_special_tokens=
 assert generation_text == "A bus parked on the side of a road.<s>"
 ```
 
-Fuyu can also perform some question answering on natural images (thought fine-tuning may be required for good performance):
+Fuyu can also perform some question answering on natural images and charts/diagrams (thought fine-tuning may be required for good performance):
 ```python
 text_prompt = "What color is the bus?\n"
 image_path = "/bus.png"  # https://huggingface.co/adept-hf-collab/fuyu-8b/blob/main/bus.png
