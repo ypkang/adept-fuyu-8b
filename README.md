@@ -64,8 +64,8 @@ for k, v in model_inputs.items():
     model_inputs[k] = v.to("cuda:0")
 
 generation_output = model.generate(**model_inputs, max_new_tokens=7)
-generation_text = processor.batch_decode(generation_output, skip_special_tokens=True)[0][-35:]
-assert generation_text == "A bus parked on the side of a road."
+generation_text = processor.batch_decode(generation_output[:, -7:], skip_special_tokens=True)
+assert generation_text == ['A bus parked on the side of a road.']
 ```
 
 Fuyu can also perform some question answering on natural images and charts/diagrams (thought fine-tuning may be required for good performance):
@@ -79,8 +79,8 @@ for k, v in model_inputs.items():
     model_inputs[k] = v.to("cuda:0")
 
 generation_output = model.generate(**model_inputs, max_new_tokens=6)
-generation_text = processor.batch_decode(generation_output, skip_special_tokens=True)[0][-17:]
-assert generation_text == "The bus is blue.\n"
+generation_text = processor.batch_decode(generation_output[:, -6:], skip_special_tokens=True)
+assert generation_text == ["The bus is blue.\n"]
 
 
 text_prompt = "What is the highest life expectancy at birth of male?\n"
@@ -92,8 +92,8 @@ for k, v in model_inputs.items():
     model_inputs[k] = v.to("cuda:0")
 
 generation_output = model.generate(**model_inputs, max_new_tokens=16)
-generation_text = processor.batch_decode(generation_output, skip_special_tokens=True)[0][-55:]
-assert generation_text == "The life expectancy at birth of males in 2018 is 80.7.\n"
+generation_text = processor.batch_decode(generation_output[:, -16:], skip_special_tokens=True)
+assert generation_text == ["The life expectancy at birth of males in 2018 is 80.7.\n"]
 ```
 
 ## Uses
