@@ -22,6 +22,9 @@
   "qk_layernorm": true,
   "rope_scaling": null,
   "rope_theta": 25000.0,
+  "text_config": {
+    "model_type": "persimmon"
+  },
   "tie_word_embeddings": false,
   "torch_dtype": "bfloat16",
   "transformers_version": "4.35.0.dev0",
