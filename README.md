@@ -70,6 +70,10 @@ generation_text = processor.batch_decode(generation_output[:, -7:], skip_special
 assert generation_text == ['A bus parked on the side of a road.']
 ```
 
+N.B.: The token `|SPEAKER|` is a placeholder token for image patch embeddings, so it will show up in the model context (e.g., in the portion of `generation_output` representing the model context).
+`|NEWLINE|` is the "image newline" token, denoting new rows in the raster scan order input of the image patches.
+`\x04` is the "beginning of answer" token.
+
 Fuyu can also perform some question answering on natural images and charts/diagrams (thought fine-tuning may be required for good performance):
 ```python
 text_prompt = "What color is the bus?\n"
