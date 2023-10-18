@@ -27,7 +27,7 @@ The model can use its existing position embeddings to reason about different ima
 - **Developed by:** Adept-AI
 - **Model type:** Decoder-only multi-modal transformer model 
 - **License:** [CC-BY-NC](https://creativecommons.org/licenses/by-nc/4.0/deed.en)
-- **Model Description:** This is a multi-modal model that can consume images and text and produce test. 
+- **Model Description:** This is a multi-modal model that can consume images and text and produce text. 
 - **Resources for more information:** Check out our [blog post](https://www.adept.ai/blog/fuyu-8b).
 
 ## Evaluation
