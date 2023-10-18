@@ -29,8 +29,6 @@ The model can use its existing position embeddings to reason about different ima
 - **Resources for more information:** Check out our [blog post](https://www.adept.ai/blog/fuyu-8b).
 
 ## Evaluation
-The chart above evaluates user preference for SDXL (with and without refinement) over SDXL 0.9 and Stable Diffusion 1.5 and 2.1. 
-The SDXL base model performs significantly better than the previous variants, and the model combined with the refinement module achieves the best overall performance.
 Though not the focus of this model, we did evaluate it on standard image understanding benchmarks:
 
 | Eval Task           | Fuyu-8B | Fuyu-Medium       | LLaVA 1.5 (13.5B) | QWEN-VL (10B) | PALI-X (55B) | PALM-e-12B | PALM-e-562B |
