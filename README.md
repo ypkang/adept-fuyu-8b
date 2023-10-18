@@ -3,7 +3,7 @@ license: cc
 ---
 # Fuyu-8B Model Card
 
-Note: Until it is merged, checking out https://github.com/huggingface/transformers/pull/26911 will be necessary to run Fuyu!
+Note: Running Fuyu requires https://github.com/huggingface/transformers/pull/26911, which may require running transformers on main!
 
 ## Model
 
