@@ -3,6 +3,8 @@ license: cc
 ---
 # Fuyu-8B Model Card
 
+Note: Until it is merged, checking out https://github.com/huggingface/transformers/pull/26911 will be necessary to run Fuyu!
+
 ## Model
 
 [Fuyu-8B](https://www.adept.ai/blog/fuyu-8b) is a multi-modal text and image transformer trained by [Adept AI](https://www.adept.ai/).
