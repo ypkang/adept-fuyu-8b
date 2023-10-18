@@ -1,4 +1,8 @@
 {
+  "additional_special_tokens": [
+    "<unk>",
+    "|ENDOFTEXT|"
+  ],
   "bos_token": "|ENDOFTEXT|",
   "eos_token": "|ENDOFTEXT|",
   "unk_token": "<unk>"
