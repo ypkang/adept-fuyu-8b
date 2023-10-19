@@ -3,7 +3,7 @@ license: cc
 ---
 # Fuyu-8B Model Card
 
-We’re releasing Fuyu-8B, a small version of the multimodal1 model that powers our product. The model is available on HuggingFace. We think Fuyu-8B is exciting because:
+We’re releasing Fuyu-8B, a small version of the multimodal model that powers our product. The model is available on HuggingFace. We think Fuyu-8B is exciting because:
 1. It has a much simpler architecture and training procedure than other multi-modal models, which makes it easier to understand, scale, and deploy.
 2. It’s designed from the ground up for digital agents, so it can support arbitrary image resolutions, answer questions about graphs and diagrams, answer UI-based questions, and do fine-grained localization on screen images.
 3. It’s fast - we can get responses for large images in less than 100 milliseconds.
