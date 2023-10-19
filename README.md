@@ -1,5 +1,5 @@
 ---
-license: cc
+license: cc-by-nc-4.0
 ---
 # Fuyu-8B Model Card
 
