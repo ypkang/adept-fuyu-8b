@@ -3,7 +3,13 @@ license: cc-by-nc-4.0
 ---
 # Fuyu-8B Model Card
 
-Note: Running Fuyu requires https://github.com/huggingface/transformers/pull/26911, which may require running transformers on main!
+We’re releasing Fuyu-8B, a small version of the multimodal model that powers our product. The model is available on HuggingFace. We think Fuyu-8B is exciting because:
+1. It has a much simpler architecture and training procedure than other multi-modal models, which makes it easier to understand, scale, and deploy.
+2. It’s designed from the ground up for digital agents, so it can support arbitrary image resolutions, answer questions about graphs and diagrams, answer UI-based questions, and do fine-grained localization on screen images.
+3. It’s fast - we can get responses for large images in less than 100 milliseconds.
+4. Despite being optimized for our use-case, it performs well at standard image understanding benchmarks such as visual question-answering and natural-image-captioning.
+
+Please note that **the model we have released is a base model. We expect you to need to finetune the model for specific use cases like verbose captioning or multimodal chat.** In our experience, the model responds well to few-shotting and fine-tuning for a variety of use-cases. 
 
 ## Model
 
