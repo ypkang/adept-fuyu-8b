@@ -50,28 +50,25 @@ Though not the focus of this model, we did evaluate it on standard image underst
 
 You can load the model and perform inference as follows:
 ```python
-from transformers import FuyuForCausalLM, AutoTokenizer, FuyuProcessor, FuyuImageProcessor
+from transformers import FuyuProcessor, FuyuForCausalLM
 from PIL import Image
 
-# load model, tokenizer, and processor
-pretrained_path = "adept/fuyu-8b"
-tokenizer = AutoTokenizer.from_pretrained(pretrained_path)
+# load model and processor
+model_id = "adept/fuyu-8b"
+processor = FuyuProcessor.from_pretrained(model_id)
+model = FuyuForCausalLM.from_pretrained(model_id, device_map="cuda:0")
 
-image_processor = FuyuImageProcessor()
-processor = FuyuProcessor(image_processor=image_processor, tokenizer=tokenizer)
-
-model = FuyuForCausalLM.from_pretrained(pretrained_path, device_map="cuda:0")
-
-# test inference
+# prepare inputs for the model
 text_prompt = "Generate a coco-style caption.\n"
 image_path = "bus.png"  # https://huggingface.co/adept-hf-collab/fuyu-8b/blob/main/bus.png
-image_pil = Image.open(image_path)
+image = Image.open(image_path)
 
-model_inputs = processor(text=text_prompt, images=[image_pil], device="cuda:0")
-for k, v in model_inputs.items():
-    model_inputs[k] = v.to("cuda:0")
+inputs = processor(text=text_prompt, images=image, return_tensors="pt")
+for k, v in inputs.items():
+    inputs[k] = v.to("cuda:0")
 
-generation_output = model.generate(**model_inputs, max_new_tokens=7)
+# autoregressively generate text
+generation_output = model.generate(**inputs, max_new_tokens=7)
 generation_text = processor.batch_decode(generation_output[:, -7:], skip_special_tokens=True)
 assert generation_text == ['A bus parked on the side of a road.']
 ```
