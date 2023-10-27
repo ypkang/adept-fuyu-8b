@@ -96,9 +96,7 @@ text_prompt = "What is the highest life expectancy at birth of male?\n"
 image_path = "chart.png"  # https://huggingface.co/adept-hf-collab/fuyu-8b/blob/main/chart.png
 image_pil = Image.open(image_path)
 
-model_inputs = processor(text=text_prompt, images=[image_pil], device="cuda:0")
-for k, v in model_inputs.items():
-    model_inputs[k] = v.to("cuda:0")
+model_inputs = processor(text=text_prompt, images=[image_pil]).to("cuda:0")
 
 generation_output = model.generate(**model_inputs, max_new_tokens=16)
 generation_text = processor.batch_decode(generation_output[:, -16:], skip_special_tokens=True)
