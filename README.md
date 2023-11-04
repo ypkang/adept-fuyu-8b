@@ -52,6 +52,7 @@ You can load the model and perform inference as follows:
 ```python
 from transformers import FuyuProcessor, FuyuForCausalLM
 from PIL import Image
+import requests
 
 # load model and processor
 model_id = "adept/fuyu-8b"
@@ -60,8 +61,8 @@ model = FuyuForCausalLM.from_pretrained(model_id, device_map="cuda:0")
 
 # prepare inputs for the model
 text_prompt = "Generate a coco-style caption.\n"
-image_path = "bus.png"  # https://huggingface.co/adept-hf-collab/fuyu-8b/blob/main/bus.png
-image = Image.open(image_path)
+url = "https://huggingface.co/adept/fuyu-8b/resolve/main/bus.png"
+image = Image.open(requests.get(url, stream=True).raw)
 
 inputs = processor(text=text_prompt, images=image, return_tensors="pt")
 for k, v in inputs.items():
