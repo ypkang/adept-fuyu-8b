@@ -64,14 +64,12 @@ text_prompt = "Generate a coco-style caption.\n"
 url = "https://huggingface.co/adept/fuyu-8b/resolve/main/bus.png"
 image = Image.open(requests.get(url, stream=True).raw)
 
-inputs = processor(text=text_prompt, images=image, return_tensors="pt")
-for k, v in inputs.items():
-    inputs[k] = v.to("cuda:0")
+inputs = processor(text=text_prompt, images=image, return_tensors="pt").to("cuda:0")
 
 # autoregressively generate text
 generation_output = model.generate(**inputs, max_new_tokens=7)
 generation_text = processor.batch_decode(generation_output[:, -7:], skip_special_tokens=True)
-assert generation_text == ['A bus parked on the side of a road.']
+assert generation_text == ['A blue bus parked on the side of a road.']
 ```
 
 N.B.: The token `|SPEAKER|` is a placeholder token for image patch embeddings, so it will show up in the model context (e.g., in the portion of `generation_output` representing the model context).
@@ -81,25 +79,21 @@ N.B.: The token `|SPEAKER|` is a placeholder token for image patch embeddings, s
 Fuyu can also perform some question answering on natural images and charts/diagrams (thought fine-tuning may be required for good performance):
 ```python
 text_prompt = "What color is the bus?\n"
-image_path = "bus.png"  # https://huggingface.co/adept-hf-collab/fuyu-8b/blob/main/bus.png
-image_pil = Image.open(image_path)
+url = "https://huggingface.co/adept/fuyu-8b/resolve/main/bus.png"
+image = Image.open(requests.get(url, stream=True).raw)
 
-model_inputs = processor(text=text_prompt, images=[image_pil], device="cuda:0")
-for k, v in model_inputs.items():
-    model_inputs[k] = v.to("cuda:0")
+inputs = processor(text=text_prompt, images=image, return_tensors="pt").to("cuda:0")
 
-generation_output = model.generate(**model_inputs, max_new_tokens=6)
+generation_output = model.generate(**inputs, max_new_tokens=6)
 generation_text = processor.batch_decode(generation_output[:, -6:], skip_special_tokens=True)
 assert generation_text == ["The bus is blue.\n"]
 
 
 text_prompt = "What is the highest life expectancy at birth of male?\n"
-image_path = "chart.png"  # https://huggingface.co/adept-hf-collab/fuyu-8b/blob/main/chart.png
-image_pil = Image.open(image_path)
+url = "https://huggingface.co/adept/fuyu-8b/resolve/main/chart.png"
+image = Image.open(requests.get(url, stream=True).raw)
 
-model_inputs = processor(text=text_prompt, images=[image_pil], device="cuda:0")
-for k, v in model_inputs.items():
-    model_inputs[k] = v.to("cuda:0")
+model_inputs = processor(text=text_prompt, images=image, return_tensors="pt").to("cuda:0")
 
 generation_output = model.generate(**model_inputs, max_new_tokens=16)
 generation_text = processor.batch_decode(generation_output[:, -16:], skip_special_tokens=True)
